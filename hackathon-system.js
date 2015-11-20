@@ -1,19 +1,41 @@
+Attendees = new Mongo.Collection("attendees");
+
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
-
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
+  Template.body.helpers({
+    attendees: function () {
+      return Attendees.find({});
     }
-  });
+  })
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
+  Template.body.events({
+    "submit .register": function (event) {
+      event.preventDefault();
+
+      var name = event.target.name.value;
+      var email = event.target.email.value;
+
+      if (Attendees.find({ email: email }).count() > 0) {
+        return
+      }
+
+      if (name !== "" && email !== "") {
+        Attendees.insert({
+          name: name,
+          email: email,
+          status: 'Registered'
+        })
+
+        event.target.name.value = "";
+        event.target.email.value = "";
+      }
+    },
+
+    "click .status": function () {
+      Attendees.update(this._id, {
+        $set: {status: (this.status === "Registered") ? "Checked-in" : "Registered"}
+      });
     }
-  });
+  })
 }
 
 if (Meteor.isServer) {

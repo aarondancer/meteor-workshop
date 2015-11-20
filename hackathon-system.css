@@ -1,1 +1,25 @@
-/* CSS declarations go here */
+.card {
+	padding: 16px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	margin: 8px;
+	width: 100%;
+}
+
+.card .status {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 2px;
+	background: #eee;
+	padding-left: 8px;
+}
+
+.card .Checked-in {
+	border-color: #0a0;
+	background: #8c8;
+}
+
+.card .Registered {
+	border-color: #a90;
+	background: #fe9;
+}
