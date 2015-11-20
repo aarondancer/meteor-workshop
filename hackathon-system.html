@@ -7,18 +7,25 @@
 		<header>
 			<h1>Hackathon System</h1>
 		</header>
-		<form class="register form-inline">
-			<div class="form-group">
-				<input class="form-control" type="text" name="name" placeholder="Name">
-				<input class="form-control" type="email" name="email" placeholder="Email">
-				<button class="btn btn-primary" type="submit">Register</button>
+		{{> loginButtons}}
+		{{#if currentUser}}
+			<form class="register form-inline">
+				<div class="form-group">
+					<input class="form-control" type="text" name="name" placeholder="Name">
+					<input class="form-control" type="email" name="email" placeholder="Email">
+					<button class="btn btn-primary" type="submit">Register</button>
+				</div>
+			</form>
+			<input type="checkbox" name="toggle-checked-in" class="toggle-checked-in" checked="{{hideCheckedIn}}">
+			<label for="toggle-checked-in">Toggle checked in</label>
+			<div class="row">
+				{{#each attendees}}
+					{{> attendee}}
+				{{/each}}
 			</div>
-		</form>
-		<div class="row">
-			{{#each attendees}}
-				{{> attendee}}
-			{{/each}}
-		</div>
+		{{else}}
+			<h1>You must be logged in to use this</h1>
+		{{/if}}
 	</div>
 </body>
 
